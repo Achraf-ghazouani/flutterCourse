@@ -25,21 +25,21 @@ class ProductListPageM3 extends StatelessWidget {
     Product(
       'iPhone 15',
       999,
-      'https://picsum.photos/200/300',
+      'assets/images/iphone.png',
       isNew: true,
       rating: 4.5,
     ),
     Product(
       'Samsung Galaxy',
       799,
-      'https://picsum.photos/201/300',
+      'assets/images/galaxy.png',
       isNew: false,
       rating: 4.2,
     ),
     Product(
       'Google Pixel',
       699,
-      'https://picsum.photos/202/300',
+      'assets/images/google.png',
       isNew: true,
       rating: 4.7,
     ),
@@ -89,11 +89,22 @@ class ProductListPageM3 extends StatelessWidget {
                           height: 80,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
+                            color: Colors.grey[200],
                             image: DecorationImage(
-                              image: NetworkImage(product.image),
+                              image: AssetImage(product.image),
                               fit: BoxFit.cover,
+                              onError: (exception, stackTrace) {
+                                // Handle image loading error
+                              },
                             ),
                           ),
+                          child: product.image.isEmpty
+                              ? Icon(
+                                  Icons.image,
+                                  size: 40,
+                                  color: Colors.grey[400],
+                                )
+                              : null,
                         ),
                         if (product.isNew)
                           Positioned(

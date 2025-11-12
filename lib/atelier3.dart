@@ -23,9 +23,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           SliverAppBar(
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(
+              background: Image.asset(
                 widget.product.image,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.grey[300],
+                    child: Icon(Icons.image, size: 80, color: Colors.grey[500]),
+                  );
+                },
               ),
             ),
             pinned: true,

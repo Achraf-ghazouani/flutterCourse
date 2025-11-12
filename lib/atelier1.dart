@@ -51,11 +51,16 @@ class ProfilePageM3 extends StatelessWidget {
                       colors: [colorScheme.primary, colorScheme.secondary],
                     ),
                   ),
-                  child: const CircleAvatar(
+                  child: CircleAvatar(
                     radius: 56,
-                    backgroundImage: NetworkImage(
-                      'https://picsum.photos/200/200',
+                    backgroundColor: Colors.grey[300],
+                    child: Icon(
+                      Icons.person,
+                      size: 50,
+                      color: Colors.grey[600],
                     ),
+                    // Uncomment below to use a local asset image:
+                    // backgroundImage: AssetImage('assets/images/profile.png'),
                   ),
                 ),
                 Container(
