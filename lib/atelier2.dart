@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'cart_page.dart';
 
 // Modèle de données
 class Product {
@@ -67,57 +68,17 @@ class _ProductListPageM3State extends State<ProductListPageM3> {
   }
 
   void _showCart() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Récapitulatif Panier',
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            ..._cart.entries.map(
-              (entry) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('${entry.key.name} x${entry.value}'),
-                    Text(
-                      '${(entry.key.price * entry.value).toStringAsFixed(2)}€',
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Total: $_totalItems article${_totalItems > 1 ? 's' : ''}',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  '${_totalPrice.toStringAsFixed(2)}€',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Fermer'),
-              ),
-            ),
-          ],
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CartPage(
+          cart: _cart,
+          onCartUpdated: (updatedCart) {
+            setState(() {
+              _cart.clear();
+              _cart.addAll(updatedCart);
+            });
+          },
         ),
       ),
     );
@@ -312,7 +273,7 @@ class _ProductListPageM3State extends State<ProductListPageM3> {
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
-                                    '${product.price.toStringAsFixed(2)}€',
+                                    '${product.price.toStringAsFixed(2)}DT',
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -453,7 +414,7 @@ class _ProductListPageM3State extends State<ProductListPageM3> {
                             ),
                           ),
                           Text(
-                            'Total: ${_totalPrice.toStringAsFixed(2)}€',
+                            'Total: ${_totalPrice.toStringAsFixed(2)}DT',
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
